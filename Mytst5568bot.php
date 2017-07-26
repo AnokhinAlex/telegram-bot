@@ -12,12 +12,12 @@ $message = $output['message']['text']; // Выделим сообщение со
 $str = substr($message,0,21); 
 $str_canonical = "View all finish user:10";
 if((substr($str_canonical,0,21) == substr($message,0,21)) ){
-     sendMessage($chat_id, 'прошла проверка' );
+    // sendMessage($chat_id, 'прошла проверка' );
     $st = $message; 
     list($number) = sscanf($st, "View all finish user:%d");
         if(is_int($number) && ($number > 0) ){
             $go = mysqli_query($link,"SELECT username, usid  FROM  `one` LIMIT $number  ");
-            sendMessage($chat_id, $number );
+            sendMessage($chat_id," Запрошено записей: {$number} ");
             $i = 0;
             while ($gor = mysqli_fetch_array($go,MYSQLI_ASSOC)){
                $i++; 

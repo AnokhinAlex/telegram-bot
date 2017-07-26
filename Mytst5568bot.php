@@ -29,24 +29,26 @@ if((substr($str_canonical,0,21) == substr($message,0,21)) ){
 switch( $tolower) {
 
 case ('xnode-хочу работать!'):
-$go = mysqli_query($link,"SELECT usid  FROM  one"); 
+
+$go = mysqli_query($link,"SELECT usid FROM  pre"); 
 while ($gor = mysqli_fetch_array($go,MYSQLI_ASSOC)){
 if($gor['usid'] == $chat_id){
 	$alreadyexist = $gor['usid'];
 }
 }
 if(!$alreadyexist){
-mysqli_query($link,"INSERT INTO one (usid,username,message) VALUES ('$chat_id','$first_name', '$message')");    
+mysqli_query($link,"INSERT INTO pre (usid,username) VALUES ('$chat_id','$first_name')");    
 sendMessage($chat_id, 'Мы тебя слушаем');	
 }else{
  sendMessage($chat_id, 'Тебя уже услышали');   
-}	
+}
+
 
   break;  
 
 case ('люблю php, жить не могу без него!'):
 
-$res = mysqli_query($link,"SELECT * FROM  `one` ");
+$res = mysqli_query($link,"SELECT usid FROM  pre ");
  while ($row = mysqli_fetch_array($res,MYSQLI_ASSOC)){
     if($row['usid'] == $chat_id ){
         $tot = $row['usid'];
@@ -54,11 +56,19 @@ $res = mysqli_query($link,"SELECT * FROM  `one` ");
  };
 
 if($tot){
-sendMessage($chat_id, "Мы верим в тебя!");
-} else{
-   sendMessage($chat_id, "Всё равно игнорирует"); 
+$go = mysqli_query($link,"SELECT usid FROM  one");
+while ($gor = mysqli_fetch_array($go,MYSQLI_ASSOC)){
+if($gor['usid'] == $chat_id){
+	$alreadyexist = $gor['usid'];
 }
-
+}
+if(!$alreadyexist){
+mysqli_query($link,"INSERT INTO one (usid,username) VALUES ('$chat_id','$first_name')");    
+sendMessage($chat_id, 'Мы верим в тебя');	
+}else{
+ sendMessage($chat_id, 'Уже верим');   
+}
+}else sendMessage($chat_id, 'Всё равно игнорирует');
 break;
 
 default:

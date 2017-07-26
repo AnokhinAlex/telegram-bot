@@ -29,9 +29,18 @@ if((substr($str_canonical,0,21) == substr($message,0,21)) ){
 switch( $tolower) {
 
 case ('xnode-хочу работать!'):
-    
+$go = mysqli_query($link,"SELECT usid  FROM  one"); 
+while ($gor = mysqli_fetch_array($go,MYSQLI_ASSOC)){
+if($gor['usid'] == $chat_id){
+	$alreadyexist = $gor['usid'];
+}
+}
+if(!$alreadyexist){
 mysqli_query($link,"INSERT INTO one (usid,username,message) VALUES ('$chat_id','$first_name', '$message')");    
-sendMessage($chat_id, 'Мы тебя слушаем');
+sendMessage($chat_id, 'Мы тебя слушаем');	
+}else{
+ sendMessage($chat_id, 'Тебя уже услышали');   
+}	
 
   break;  
 

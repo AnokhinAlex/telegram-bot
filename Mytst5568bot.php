@@ -16,7 +16,7 @@ if((substr($str_canonical,0,21) == substr($message,0,21)) ){
     $st = $message; 
     list($number) = sscanf($st, "View all finish user:%d");
         if(is_int($number) && ($number > 0) ){
-            $go = mysqli_query($link,"SELECT username, usid, bool  FROM  MYDB LIMIT $number  ");
+            $go = mysqli_query($link,"SELECT username, usid, bool  FROM  MYDB WHERE bool=TRUE LIMIT $number  ");
             sendMessage($chat_id," Запрошено записей: {$number} ");
             $i = 0;
             while ($gor = mysqli_fetch_array($go,MYSQLI_ASSOC)){

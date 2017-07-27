@@ -20,8 +20,8 @@ if((substr($str_canonical,0,21) == substr($message,0,21)) ){
             sendMessage($chat_id," Запрошено записей: {$number} ");
             $i = 0;
             while ($gor = mysqli_fetch_array($go,MYSQLI_ASSOC)){
-               $i++; 
                if($gor['bool']){
+               $i++;    
             sendMessage($chat_id," {$i}. имя: {$gor['username']}; userid: {$gor['usid']}; "  );
                }
             }
